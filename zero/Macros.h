@@ -1,4 +1,4 @@
-#ifndef __MACROS_H__
+﻿#ifndef __MACROS_H__
 #define __MACROS_H__
 
 #include "Header.h"
@@ -14,6 +14,10 @@
 #	define Trace trace
 #endif
 
+
+//BREAK(message) : tự động break chương trình khi đang chạy và dừng tại vị trí gọi hàm
+//BREAK_IF(cnd, message) : break với điều kiện cnd
+//WARNING(message) : xuất hiện warning khi build
 // compile - runtime helper
 #if CONFIG_PLATFORM==PLATFORM_WIN32_VS
 #	include <stdlib.h>
@@ -30,11 +34,10 @@
 #	define EXEC(command)	;
 #endif
 
-
 // log helper
 #if CONFIG_PLATFORM==PLATFORM_WIN32_VS
 extern void SetCommandTextColor(WORD);
-#	define Log(...)			SetCommandTextColor(0x07);printf(__VA_ARGS__);printf("\n")
+#	define Log(...)			SetCommandTextColor(0x0f);printf(__VA_ARGS__);printf("\n")
 #	define LogError(...)	SetCommandTextColor(0x0c);printf(__VA_ARGS__);printf("\n");SetCommandTextColor(0x07);
 #	define LogWarning(...)	SetCommandTextColor(0x0e);printf(__VA_ARGS__);printf("\n");SetCommandTextColor(0x07);
 #elif CONFIG_PLATFORM==PLATFORM_ANDROID

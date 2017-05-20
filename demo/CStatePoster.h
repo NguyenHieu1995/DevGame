@@ -20,7 +20,7 @@ private:
 	//CSurface* m_pSurface;
 	//CSurface* m_pSurface1;
 	//CTexture* m_pTexture;
-	CSprite* m_pSprite;
+	//CSprite* m_pSprite;
 };
 
 #endif

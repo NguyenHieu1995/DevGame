@@ -40,8 +40,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\zero\Source\Repos\DevGame\zero\visual_leak_detector;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\zero\Source\Repos\DevGame\zero\visual_leak_detector;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -51,7 +51,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>H:\game_directx_9.0\zero\zero;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zero\Source\Repos\DevGame\zero;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -89,6 +89,7 @@
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CSprite.cpp" />
     <ClCompile Include="CStateManagement.cpp" />
+    <ClCompile Include="CStringBufferStream.cpp" />
     <ClCompile Include="CSurface.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CToken.cpp" />
@@ -105,11 +106,14 @@
     <ClInclude Include="CGameError.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CInput.h" />
+    <ClInclude Include="CMatrix.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="CResourceLookupTable.h" />
     <ClInclude Include="CSingleton.h" />
     <ClInclude Include="CSprite.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateManagement.h" />
+    <ClInclude Include="CStringBufferStream.h" />
     <ClInclude Include="CSurface.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CToken.h" />

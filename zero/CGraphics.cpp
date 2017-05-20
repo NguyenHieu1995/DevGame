@@ -10,7 +10,7 @@ CGraphics::CGraphics()
 
 CGraphics::~CGraphics()
 {
-
+	//SAFE_RELEASE(this->v_buffer);
 }
 
 bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
@@ -66,6 +66,7 @@ bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
 void CGraphics::Destroy()
 {
 	SAFE_RELEASE(this->m_lpDirect3DDevice);
+	SAFE_RELEASE(this->v_buffer);
 }
 
 //
@@ -172,4 +173,129 @@ HRESULT CGraphics::Reset()
 LPDIRECT3DDEVICE9 CGraphics::GetDevice()
 {
 	return m_lpDirect3DDevice;
+}
+
+void CGraphics::BeginGraphic()
+{
+	//Xoa bo dem backbuffer
+	CGraphics::GetInstance()->ClearBackbuffer();
+
+	//Bat dau ve bang directx 
+	CGraphics::GetInstance()->GetDevice()->BeginScene();
+}
+
+void CGraphics::EndGraphics()
+{
+	//Ket thuc ve bang directx
+	CGraphics::GetInstance()->GetDevice()->EndScene();
+	//update Graphics
+	CGraphics::GetInstance()->ShowBackbuffer();
+}
+
+
+
+void CGraphics::DrawLine(D3DXVECTOR2 startPoint, D3DXVECTOR2 endPoint)
+{
+	LPD3DXLINE line;
+	D3DXCreateLine(CGraphics::GetInstance()->GetDevice(), &line);
+	D3DXVECTOR2 lines[] = { startPoint, endPoint };
+	line->Begin();
+	line->Draw(lines, 2, 0xFFFFFFFF);
+	line->End();
+	line->Release();
+}
+
+void CGraphics::DrawLine(D3DXVECTOR2 startPoint, D3DXVECTOR2 endPoint, D3DCOLOR color)
+{
+	LPD3DXLINE line;
+	D3DXCreateLine(CGraphics::GetInstance()->GetDevice(), &line);
+	D3DXVECTOR2 lines[] = { startPoint, endPoint };
+	line->Begin();
+	line->Draw(lines, 2, color);
+	line->End();
+	line->Release();
+}
+
+void CGraphics::DrawTriangle(D3DXVECTOR2 p1, D3DXVECTOR2 p2, D3DXVECTOR2 p3)
+{
+	// create three vertices using the CUSTOMVERTEX struct built earlier
+	CUSTOMVERTEX2D vertices[] =
+	{
+		{ p1.x, p1.y, 1.0f },
+		{ p2.x, p2.y, 1.0f },
+		{ p3.x, p3.y, 1.0f },
+		{ p1.y, p1.x, 1.0f }
+	};
+
+	// create the vertex and store the pointer into v_buffer, which is created globally
+	m_lpDirect3DDevice->CreateVertexBuffer(4 * sizeof(CUSTOMVERTEX2D),
+		0,
+		CUSTOMFVF,
+		D3DPOOL_MANAGED,
+		&v_buffer,
+		NULL);
+
+	VOID* pVoid;    // the void pointer
+
+	v_buffer->Lock(0, 0, (void**)&pVoid, 0);    // lock the vertex buffer
+	memcpy(pVoid, vertices, sizeof(vertices));    // copy the vertices to the locked buffer
+	v_buffer->Unlock();    // unlock the vertex buffer
+
+	//m_lpDirect3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE); //turn off lighting - DirectX needs to know this :(
+	//m_lpDirect3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //turns off face culling (for now)
+
+	// select which vertex format we are using
+	m_lpDirect3DDevice->SetFVF(CUSTOMFVF);
+
+	// select the vertex buffer to display
+	m_lpDirect3DDevice->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX2D));
+
+	// copy the vertex buffer to the back buffer
+	m_lpDirect3DDevice->DrawPrimitive(D3DPT_LINESTRIP, 0, 3);
+}
+
+void CGraphics::DrawTriangle(D3DXVECTOR2 p1, D3DXVECTOR2 p2, D3DXVECTOR2 p3, D3DCOLOR color)
+{
+
+}
+
+void CGraphics::DrawRectangle(RECT rect)
+{
+	// create three vertices using the CUSTOMVERTEX struct built earlier
+	CUSTOMVERTEX2D vertices[] =
+	{
+		{ rect.left, rect.top, 1.0f },
+		{ rect.right, rect.top, 1.0f },
+		{ rect.right, rect.bottom, 1.0f },
+		{ rect.left, rect.bottom, 1.0f },
+		{ rect.left, rect.top, 1.0f }
+	};
+
+	// create the vertex and store the pointer into v_buffer, which is created globally
+	m_lpDirect3DDevice->CreateVertexBuffer(5 * sizeof(CUSTOMVERTEX2D),
+		0,
+		CUSTOMFVF,
+		D3DPOOL_MANAGED,
+		&v_buffer,
+		NULL);
+
+	VOID* pVoid;    // the void pointer
+
+	v_buffer->Lock(0, 0, (void**)&pVoid, 0);    // lock the vertex buffer
+	memcpy(pVoid, vertices, sizeof(vertices));    // copy the vertices to the locked buffer
+	v_buffer->Unlock();    // unlock the vertex buffer
+
+	// select which vertex format we are using
+	m_lpDirect3DDevice->SetFVF(CUSTOMFVF);
+
+	// select the vertex buffer to display
+	m_lpDirect3DDevice->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX2D));
+
+	// copy the vertex buffer to the back buffer
+	m_lpDirect3DDevice->DrawPrimitive(D3DPT_LINESTRIP, 0, 4);
+}
+
+void CGraphics::DrawRectangle(RECT rect, D3DCOLOR color)
+{
+
 }

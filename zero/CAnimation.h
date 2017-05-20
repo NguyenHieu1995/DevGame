@@ -3,7 +3,6 @@
 
 #include "Header.h"
 
-
 class CAnimation
 {
 public:
