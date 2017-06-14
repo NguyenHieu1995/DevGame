@@ -8,6 +8,7 @@
 #include "Header.h"
 #include "CGameError.h"
 #include "CSingleton.h"
+#include "CFpscontroller.h"
 // Color defines 
 #define COLOR_ARGB DWORD 
 #define SETCOLOR_ARGB(a,r,g,b) \ ((COLOR_ARGB)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff))) 

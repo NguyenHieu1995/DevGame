@@ -66,6 +66,9 @@
     <ClCompile Include="CStringBufferStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CAnimation.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="CMatrix.h">
       <Filter>Header Files\support</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

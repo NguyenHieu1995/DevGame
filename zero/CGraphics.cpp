@@ -78,6 +78,14 @@ HRESULT CGraphics::ShowBackbuffer()
 						// (This function will be moved in later versions)    
 						// Clear the backbuffer to lime green    
 	result = m_lpDirect3DDevice->Present(NULL, NULL, NULL, NULL);
+
+	/*
+	Log("\n Fps = %d FrameDT = %.9f",
+		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
+		GameTutor::CFpsController::GetInstance()->GetFrameDt());
+	*/
+	
+
 	return result;
 }
 

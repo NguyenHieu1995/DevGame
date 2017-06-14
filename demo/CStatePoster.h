@@ -2,6 +2,7 @@
 #define __CSTATEPOSTER_H__
 
 #include "zero.h"
+//#include "CInput.h"
 
 class CStatePoster : public GameTutor::CState
 {
@@ -21,6 +22,8 @@ private:
 	//CSurface* m_pSurface1;
 	//CTexture* m_pTexture;
 	//CSprite* m_pSprite;
+
+	int x = 0, y = 0;
 };
 
 #endif

@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAnimation.cpp" />
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CDirectx.cpp" />
     <ClCompile Include="CFpscontroller.cpp" />
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CAnimation.h" />
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CConstants.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CDirectx.h" />

@@ -160,7 +160,12 @@ namespace GameTutor
 		while (true)
 		{
 			CGraphics::GetInstance()->BeginGraphic();
-
+			
+			//
+			//Test 
+			//
+			CInput::GetInstance()->Initialize(GetModuleHandle(0), m_hwndWindow, this->GetWidth(), this->GetHeight());
+			
 			// handle win32 message
 			MSG msg;
 			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -171,6 +176,8 @@ namespace GameTutor
 					WndProc(m_hwndWindow, msg.message, msg.wParam, msg.lParam);
 				}
 			}
+
+			CInput::GetInstance()->Frame();
 			CGame::GetInstance()->Update();
 
 			if (!CGame::GetInstance()->IsAlive())
@@ -184,6 +191,7 @@ namespace GameTutor
 				return;
 			}
 
+			CInput::GetInstance()->Destroy();
 			CGraphics::GetInstance()->EndGraphics();
 			DispatchMessage(&msg);
 		}

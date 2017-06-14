@@ -4,6 +4,7 @@
 #include "Header.h"
 #include "CDirectx.h"
 #include "CGraphics.h"
+#include "CInput.h"
 
 #if (CONFIG_PLATFORM==PLATFORM_WIN32_VS)
 

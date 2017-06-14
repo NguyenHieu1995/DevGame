@@ -47,24 +47,28 @@ void CStatePoster::Render()
 	//m_pSurface->Render(NULL, NULL);
 	//m_pTexture->Render();
 	//m_pSprite->Render();
-
+	
+	/*
 	Log("State Logo: %d Fps = %d FrameDT = %.9f",
 		m_iCount,
 		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
 		GameTutor::CFpsController::GetInstance()->GetFrameDt());
 	Log("\nRender State Poster");
-	
+	*/
+
+	Log("\nState Logo: %d ", m_iCount);
+
 	//CGraphics::GetInstance()->DrawLine(D3DXVECTOR2(0, 0), D3DXVECTOR2(400, 400), D3DCOLOR_XRGB(0, 255, 0));
 
 	//CGraphics::GetInstance()->DrawTriangle(D3DXVECTOR2(10, 10), D3DXVECTOR2(100, 300), D3DXVECTOR2(300, 300));
 
-	RECT rect;
+	/*RECT rect;
 	rect.top = 10;
 	rect.bottom = 300;
 	rect.left = 10;
 	rect.right = 300;
 
-	CGraphics::GetInstance()->DrawRectangle(rect);
+	CGraphics::GetInstance()->DrawRectangle(rect);*/
 }
 
 void CStatePoster::Exit()
