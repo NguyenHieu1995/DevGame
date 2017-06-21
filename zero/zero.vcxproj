@@ -92,6 +92,7 @@
     <ClCompile Include="CStateManagement.cpp" />
     <ClCompile Include="CStringBufferStream.cpp" />
     <ClCompile Include="CSurface.cpp" />
+    <ClCompile Include="CText.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CToken.cpp" />
     <ClCompile Include="CVSView.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="CStateManagement.h" />
     <ClInclude Include="CStringBufferStream.h" />
     <ClInclude Include="CSurface.h" />
+    <ClInclude Include="CText.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CToken.h" />
     <ClInclude Include="CViewController.h" />

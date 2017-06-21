@@ -1,5 +1,6 @@
 #include "CExample.h"
 #include "CStateLogo.h"
+#include "CStatePoster.h"
 #include <stdio.h>
 
 void CExample::Init()
@@ -10,7 +11,7 @@ void CExample::Init()
 	CFpsController::GetInstance();
 
 	// Init State
-	CStateManagement::GetInstance()->GetInstance()->SwitchState(new CStateLogo());
+	CStateManagement::GetInstance()->GetInstance()->SwitchState(new CStatePoster());
 	m_isInit = true;
 }
 

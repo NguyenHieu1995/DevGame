@@ -11,8 +11,8 @@ int main()
 #endif
 
 	SGameConfig cnf = {
-		640,
-		480,
+		800,
+		600,
 		false,
 		"Hello",
 		new CExample()

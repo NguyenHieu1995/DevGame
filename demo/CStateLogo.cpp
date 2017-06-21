@@ -25,15 +25,16 @@ void CStateLogo::Update()
 
 void CStateLogo::Render()
 {
-	Log("State Logo: %d Fps = %d FrameDT = %.9f", 
-		m_iCount, 
-		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(), 
+	/*Log("State Logo: %d Fps = %d FrameDT = %.9f",
+		m_iCount,
+		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
 		GameTutor::CFpsController::GetInstance()->GetFrameDt());
 
-	Trace("State Logo: %d Fps = %d FrameDT = %.9f\n", 
-		m_iCount, 
-		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(), 
-		GameTutor::CFpsController::GetInstance()->GetFrameDt());
+		Trace("State Logo: %d Fps = %d FrameDT = %.9f\n",
+		m_iCount,
+		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
+		GameTutor::CFpsController::GetInstance()->GetFrameDt());*/
+
 }
 
 void CStateLogo::Exit()

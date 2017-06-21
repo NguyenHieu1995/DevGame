@@ -1,8 +1,6 @@
 ﻿#ifndef __MACROS_H__
 #define __MACROS_H__
 
-#include "Header.h"
-
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 

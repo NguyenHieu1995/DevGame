@@ -11,6 +11,7 @@ CGraphics::CGraphics()
 CGraphics::~CGraphics()
 {
 	//SAFE_RELEASE(this->v_buffer);
+	SAFE_RELEASE(font);
 }
 
 bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
@@ -27,22 +28,22 @@ bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
 	m_isFullScreen = fullScreen;
 
 	InitD3dpp();
-	                                                                       
+
 	// Determine if graphics card supports harware texturing and lighting     
 	// and vertex shaders                                                     
-	D3DCAPS9 caps;                                                            
-	DWORD behavior;                                                           
-	result = CDirectx::GetInstance()->GetDirectX()->GetDeviceCaps(D3DADAPTER_DEFAULT,                                                       
-		D3DDEVTYPE_HAL, &caps);                  
+	D3DCAPS9 caps;
+	DWORD behavior;
+	result = CDirectx::GetInstance()->GetDirectX()->GetDeviceCaps(D3DADAPTER_DEFAULT,
+		D3DDEVTYPE_HAL, &caps);
 	// If device doesn't support HW T&L or doesn't support 1.1 vertex         
 	// shaders in hardware, then switch to software vertex processing.        
-	if( (caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT) == 0 ||                       
-		caps.VertexShaderVersion < D3DVS_VERSION(1,1) )                        
+	if ((caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT) == 0 ||
+		caps.VertexShaderVersion < D3DVS_VERSION(1, 1))
 		// Use software-only processing                                           
-		behavior = D3DCREATE_SOFTWARE_VERTEXPROCESSING;                       
-	else                                                                          
+		behavior = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+	else
 		// Use hardware-only processing                                           
-		behavior = D3DCREATE_HARDWARE_VERTEXPROCESSING; 
+		behavior = D3DCREATE_HARDWARE_VERTEXPROCESSING;
 
 	result = CDirectx::GetInstance()->GetDirectX()->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -59,6 +60,19 @@ bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
 	{
 		return false;
 	}
+
+	font = NULL;
+	HRESULT hr = D3DXCreateFont(this->m_lpDirect3DDevice, 20, 0, FW_NORMAL, 1, false,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &font);
+
+	if (!SUCCEEDED(hr))
+	{
+		return false;
+	}
+
+	SetRect(&fRectangle, this->m_iWidth - 100, 10, this->m_iWidth, 210);
+	message = "";
+
 	return true;
 }
 
@@ -75,16 +89,16 @@ void CGraphics::Destroy()
 HRESULT CGraphics::ShowBackbuffer()
 {
 	result = E_FAIL;    // Default to fail, replace on success    
-						// (This function will be moved in later versions)    
-						// Clear the backbuffer to lime green    
+	// (This function will be moved in later versions)    
+	// Clear the backbuffer to lime green    
 	result = m_lpDirect3DDevice->Present(NULL, NULL, NULL, NULL);
 
 	/*
 	Log("\n Fps = %d FrameDT = %.9f",
-		GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
-		GameTutor::CFpsController::GetInstance()->GetFrameDt());
+	GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
+	GameTutor::CFpsController::GetInstance()->GetFrameDt());
 	*/
-	
+
 
 	return result;
 }
@@ -108,9 +122,9 @@ bool CGraphics::IsAdapterCompatible()
 	for (int i = 0; i < (modes - 1); i++)
 	{
 		result = CDirectx::GetInstance()->GetDirectX()->EnumAdapterModes(D3DADAPTER_DEFAULT, d3dpp.BackBufferFormat, i, &pMode);
-		if (pMode.Height == d3dpp.BackBufferHeight &&            
-			pMode.Width == d3dpp.BackBufferWidth &&            
-			pMode.RefreshRate >= d3dpp.FullScreen_RefreshRateInHz)            
+		if (pMode.Height == d3dpp.BackBufferHeight &&
+			pMode.Width == d3dpp.BackBufferWidth &&
+			pMode.RefreshRate >= d3dpp.FullScreen_RefreshRateInHz)
 			return true;
 	}    return false;
 }
@@ -147,7 +161,7 @@ bool CGraphics::InitD3dpp()
 	if (m_isFullScreen)      // If fullscreen mode                                 
 	{
 		if (IsAdapterCompatible())   // Is the adapter compatible                      
-									 // Set the refresh rate with a compatible one                             
+			// Set the refresh rate with a compatible one                             
 			d3dpp.FullScreen_RefreshRateInHz = pMode.RefreshRate;
 		else
 		{
@@ -163,10 +177,10 @@ bool CGraphics::InitD3dpp()
 HRESULT CGraphics::GetDeviceState()
 {
 	result = E_FAIL;    // Default to fail, replace on success    
-	if (m_lpDirect3DDevice == NULL)        
-		return  result;    
-	result = m_lpDirect3DDevice->TestCooperativeLevel();    
-	return result; 
+	if (m_lpDirect3DDevice == NULL)
+		return  result;
+	result = m_lpDirect3DDevice->TestCooperativeLevel();
+	return result;
 }
 
 HRESULT CGraphics::Reset()
@@ -194,6 +208,14 @@ void CGraphics::BeginGraphic()
 
 void CGraphics::EndGraphics()
 {
+	//Hien thi FPS
+	std::string s = "FPS: " + std::to_string(GameTutor::CFpsController::GetInstance()->GetRuntimeFps());
+
+	if (font)
+	{
+		font->DrawTextA(NULL, s.c_str(), -1, &fRectangle, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	}
+
 	//Ket thuc ve bang directx
 	CGraphics::GetInstance()->GetDevice()->EndScene();
 	//update Graphics

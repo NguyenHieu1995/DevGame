@@ -177,7 +177,7 @@ namespace GameTutor
 				}
 			}
 
-			CInput::GetInstance()->Frame();
+			//CInput::GetInstance()->Frame();
 			CGame::GetInstance()->Update();
 
 			if (!CGame::GetInstance()->IsAlive())

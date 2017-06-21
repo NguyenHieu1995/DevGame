@@ -1,7 +1,7 @@
 #ifndef __CDEVICE_H__
 #define __CDEVICE_H__
 
-#include "Header.h"
+//#include "Header.h"
 #include "SGameConfig.h"
 #include "CSingleton.h"
 

@@ -1,7 +1,7 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#include "Header.h"
+//#include "Header.h"
 #include "list"
 #include "map"
 #include "CDevice.h"
@@ -403,6 +403,32 @@ template<typename element_type> void GameTutor::CLut<element_type>::Clear()
 		}
 	}
 	m_List.clear();
+}
+
+#include <sstream>
+
+//Chuyen so thanh chuoi 
+//
+//Usage: NumberToString(Number);
+//
+template <typename T>
+string NumberToString(T Number)
+{
+	stringstream ss(stringstream::in | stringstream::out);
+	ss << Number;
+	return ss.str();
+}
+
+//Chuyen chuoi thanh so
+//
+// Usage: StringToNumber<Type>(String);
+//
+template <typename T>
+T StringToNumber(const string &Text)//Text not by const reference so that the function can be used with a 
+{                               //character array as argument
+	stringstream ss(Text);
+	T result;
+	return ss >> result ? result : 0;
 }
 
 #endif
