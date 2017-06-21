@@ -10,6 +10,7 @@
 #include "CSingleton.h"
 #include "CFpscontroller.h"
 #include "Utils.h"
+#include "CText.h"
 
 // Color defines 
 #define COLOR_ARGB DWORD 

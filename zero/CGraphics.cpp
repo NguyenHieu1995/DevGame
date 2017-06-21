@@ -211,10 +211,15 @@ void CGraphics::EndGraphics()
 	//Hien thi FPS
 	std::string s = "FPS: " + std::to_string(GameTutor::CFpsController::GetInstance()->GetRuntimeFps());
 
-	if (font)
+	CText::GetInstance()->AddText(fRectangle, s);
+
+	/*if (font)
 	{
 		font->DrawTextA(NULL, s.c_str(), -1, &fRectangle, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
-	}
+	}*/
+
+	CText::GetInstance()->ShowMessage();
+
 
 	//Ket thuc ve bang directx
 	CGraphics::GetInstance()->GetDevice()->EndScene();

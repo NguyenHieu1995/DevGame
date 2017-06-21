@@ -7,27 +7,30 @@
 #include <d3dx9.h>
 #include <iostream>
 #include <list>
+#include "CSingleton.h"
 
-struct SMESSAGE
+struct STEXT
 {
 	ID3DXFont *font;
 	RECT fRectangle;
-	std::string message;
+	std::string text;
 };
 
-class CText
+class CText : public CSingleton<CText>
 {
+	friend CSingleton<CText>;
+
 public:
 	CText();
 	virtual ~CText();
 
-
 protected:
-	std::list<SMESSAGE> listMessgage;
+	std::list<STEXT> listText;
 
 public:
-
-
+	bool AddText(STEXT);
+	bool AddText(RECT, std::string);
+	void ShowMessage();
 };
 
 #endif
