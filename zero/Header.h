@@ -11,8 +11,8 @@
 #if CONFIG_PLATFORM==PLATFORM_WIN32_VS
 #	include <windows.h>
 #	include <time.h>
-#	include <d3d9.h>
-#	include <d3dx9.h>
+//#	include <d3d9.h>
+//#	include <d3dx9.h>
 #endif
 
 #include "Macros.h"

@@ -4,6 +4,8 @@
 #include "CDevice.h"
 #include "CFpscontroller.h"
 #include "CViewController.h"
+#include "CGraphics.h"
+#include "CInput.h"
 
 GameTutor::CGame::CGame() : m_eStatus(EGSTATUS_INIT)
 {
@@ -83,24 +85,63 @@ void GameTutor::CGame::Update()
 	switch (m_eStatus)
 	{
 	case EGSTATUS_INIT:
+	{
 		this->Init();
+
+		CDirectx::GetInstance()->Init();
+
+		CInput::GetInstance()->Initialize(GetModuleHandle(0), 
+			CViewController<CVSView>::GetInstance()->GetView()->GetHandleWindow(),
+			CViewController<CVSView>::GetInstance()->GetView()->GetWidth(),
+			CViewController<CVSView>::GetInstance()->GetView()->GetHeight()
+			);
+
+		CFpsController::GetInstance();
+
+		CGraphics::GetInstance()->Init(
+			CViewController<CVSView>::GetInstance()->GetView()->GetWidth(),
+			CViewController<CVSView>::GetInstance()->GetView()->GetHeight(),
+			CViewController<CVSView>::GetInstance()->GetView()->GetHandleWindow(),
+			CViewController<CVSView>::GetInstance()->GetView()->IsFullScreen()
+			);
+
 		m_eStatus = EGSTATUS_RUNNING;
 		break;
+	}
 
 	case EGSTATUS_RUNNING:
 	case EGSTATUS_PAUSED:
+	{
 		CFpsController::GetInstance()->BeginCounter();
+		CGraphics::GetInstance()->BeginGraphic();
+		CInput::GetInstance()->Frame();
+
 		CStateManagement::GetInstance()->Update(m_eStatus == EGSTATUS_PAUSED);
+
+		CGraphics::GetInstance()->EndGraphics();
 		CFpsController::GetInstance()->EndCounter();
 		break;
-
+	}
 	case EGSTATUS_EXIT:
+	{
+		CGraphics::GetInstance()->Destroy();
+		CGraphics::FreeInstance();
+
+		CInput::GetInstance()->Destroy();
+		CInput::FreeInstance();
+
+		CFpsController::FreeInstance();
+
+		CDirectx::GetInstance()->Destroy();
+		CDirectx::FreeInstance();
+
 		//force clean up current state
 		CStateManagement::GetInstance()->SwitchState(0);
 		CStateManagement::GetInstance()->Update(false);
+
 		Destroy();
 		break;
-
+	}
 	default:
 		break;
 	}

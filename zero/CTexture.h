@@ -3,6 +3,7 @@
 
 #include "Header.h"
 #include <string>
+#include <d3dx9.h>
 
 class CTexture
 {

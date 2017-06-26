@@ -2,9 +2,6 @@
 #define __CVSVIEW_H__
 
 #include "Header.h"
-#include "CDirectx.h"
-#include "CGraphics.h"
-#include "CInput.h"
 
 #if (CONFIG_PLATFORM==PLATFORM_WIN32_VS)
 
@@ -21,6 +18,7 @@ namespace GameTutor
 		__INT32 GetWidth() { return m_iWidth; }
 		__INT32 GetHeight() { return m_iHeight; }
 		__INT32 IsFullScreen() { return m_isFullScreen; }
+		HWND GetHandleWindow() { return m_hwndWindow; }
 
 		void handleLostGraphicsDevice();
 		void releaseAll();

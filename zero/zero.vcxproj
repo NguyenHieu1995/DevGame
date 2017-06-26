@@ -109,7 +109,6 @@
     <ClInclude Include="CGameError.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CInput.h" />
-    <ClInclude Include="CMatrix.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CResourceLookupTable.h" />
     <ClInclude Include="CSingleton.h" />

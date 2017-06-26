@@ -1,6 +1,8 @@
 #include "CStatePoster.h"
-#include "CStateLogo.h"
+#include "CStatePlay.h"
 #include "Header.h"
+#include "CGraphics.h"
+#include "CStateMenu.h"
 
 CStatePoster::CStatePoster() : GameTutor::CState()
 {
@@ -25,17 +27,16 @@ void CStatePoster::Update()
 	m_iCount++;
 	//m_pSprite->Update();
 
-	if (m_iCount >= 500)
+	if (m_iCount >= 10)
 	{
-		GameTutor::CGame::GetInstance()->Exit();
+		GameTutor::CStateManagement::GetInstance()->SwitchState(new CStateMenu());
+		//GameTutor::CGame::GetInstance()->Exit();
 	}
 }
 
 void CStatePoster::Render()
 {
-	//srand(time(NULL));
-	//int a = rand() % 100 + 1;
-	Sleep(10);
+	Sleep(30);
 	//if (m_iCount >= 150)
 		//m_pSurface->LoadSurface(NULL, "resource/background1.jpg", NULL, D3DCOLOR_XRGB(0, 0, 0));
 	/*{
@@ -65,13 +66,19 @@ void CStatePoster::Render()
 
 	//CGraphics::GetInstance()->DrawTriangle(D3DXVECTOR2(10, 10), D3DXVECTOR2(100, 300), D3DXVECTOR2(300, 300));
 
+	
 	RECT rect;
 	rect.top = 10;
 	rect.bottom = 300;
 	rect.left = 10;
 	rect.right = 300;
-
 	CGraphics::GetInstance()->DrawRectangle(rect);
+
+	//CInput::GetInstance()->GetMouseLocation(x, y);
+	//string s = "Point: " + NumberToString(x) + " : " + NumberToString(y);
+	RECT fRectangle1;
+	SetRect(&fRectangle1, 0, 10, 200, 210);
+	//CText::GetInstance()->AddText(fRectangle1, s);
 }
 
 void CStatePoster::Exit()

@@ -3,7 +3,6 @@
 #include "CDevice.h"
 #include <string.h>
 #include <Strsafe.h>
-#include "CDirectx.h"
 
 #if (CONFIG_PLATFORM==PLATFORM_WIN32_VS)
 
@@ -32,9 +31,6 @@ namespace GameTutor
 			m_strTitle = new char[strlen(xname) + 1];
 			strcpy_s(m_strTitle, strlen(xname) + 1, xname);
 		}
-
-		CDirectx::GetInstance()->Init();
-		//CGraphics::GetInstance();
 
 		InitClientWindow();
 		CDevice::GetInstance()->SleepEx(1000); //sleep to avoid lag when launch game
@@ -144,12 +140,6 @@ namespace GameTutor
 			ChangeDisplaySettings(&dm, CDS_FULLSCREEN);
 		}
 
-
-		//
-		// Init Graphics
-		//
-		CGraphics::GetInstance()->Init(m_iWidth, m_iHeight, m_hwndWindow, m_isFullScreen);
-
 	}
 
 	//----------------------------------------
@@ -159,13 +149,6 @@ namespace GameTutor
 	{
 		while (true)
 		{
-			CGraphics::GetInstance()->BeginGraphic();
-			
-			//
-			//Test 
-			//
-			CInput::GetInstance()->Initialize(GetModuleHandle(0), m_hwndWindow, this->GetWidth(), this->GetHeight());
-			
 			// handle win32 message
 			MSG msg;
 			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -177,7 +160,6 @@ namespace GameTutor
 				}
 			}
 
-			//CInput::GetInstance()->Frame();
 			CGame::GetInstance()->Update();
 
 			if (!CGame::GetInstance()->IsAlive())
@@ -191,10 +173,10 @@ namespace GameTutor
 				return;
 			}
 
-			CInput::GetInstance()->Destroy();
-			CGraphics::GetInstance()->EndGraphics();
 			DispatchMessage(&msg);
 		}
+
+		
 	}
 
 	//----------------------------------------
@@ -202,12 +184,6 @@ namespace GameTutor
 	//----------------------------------------
 	void CVSView::Destroy()
 	{
-		// Destroy Graphics
-		CGraphics::GetInstance()->Destroy();
-
-		CDirectx::GetInstance()->Destroy();
-		delete CDirectx::GetInstance();
-
 		if (m_isFullScreen)
 		{
 			ChangeDisplaySettings(NULL, 0);
@@ -316,15 +292,15 @@ namespace GameTutor
 
 			case 0x09:  // tab 
 
-						// Convert tabs to four consecutive spaces. 
+				// Convert tabs to four consecutive spaces. 
 
 				for (i = 0; i < 4; i++)
 					SendMessage(hwnd, WM_CHAR, 0x20, 0);
 				return 0;
 
 			case 0x0D:  // carriage return 
-						// Record the carriage return and position the 
-						// caret at the beginning of the new line.
+				// Record the carriage return and position the 
+				// caret at the beginning of the new line.
 
 				pchInputBuf[cch++] = 0x0D;
 				nCaretPosX = 0;
@@ -373,8 +349,8 @@ namespace GameTutor
 			{
 			case VK_LEFT:   // LEFT ARROW 
 
-							// The caret can move only to the beginning of 
-							// the current line. 
+				// The caret can move only to the beginning of 
+				// the current line. 
 
 				if (nCaretPosX > 0)
 				{
@@ -397,9 +373,9 @@ namespace GameTutor
 				break;
 
 			case VK_RIGHT:  // RIGHT ARROW 
-							// Caret moves to the right or, when a carriage 
-							// return is encountered, to the beginning of 
-							// the next line. 
+				// Caret moves to the right or, when a carriage 
+				// return is encountered, to the beginning of 
+				// the next line. 
 
 				if (nCurChar < cch)
 				{
@@ -456,8 +432,8 @@ namespace GameTutor
 				return 0;
 
 			case VK_HOME:   // HOME 
-							// Set the caret's position to the upper left 
-							// corner of the client area. 
+				// Set the caret's position to the upper left 
+				// corner of the client area. 
 
 				nCaretPosX = nCaretPosY = 0;
 				nCurChar = 0;
@@ -465,7 +441,7 @@ namespace GameTutor
 
 			case VK_END:    // END  
 
-							// Move the caret to the end of the text. 
+				// Move the caret to the end of the text. 
 
 				for (i = 0; i < cch; i++)
 				{
@@ -538,7 +514,7 @@ namespace GameTutor
 		default:
 			return DefWindowProc(hwnd, message, wparam, lparam);
 		}
-		return NULL;	
+		return NULL;
 	}
 
 	//======================================================================== 
@@ -546,7 +522,7 @@ namespace GameTutor
 	//======================================================================== 
 	void CVSView::handleLostGraphicsDevice()
 	{    // Test for and handle lost device    
-		hr = CGraphics::GetInstance()->GetDeviceState();
+		/*
 		if (FAILED(hr))            // If graphics device is not in a valid state    
 		{        // If the device is lost and not available for reset        
 			if (hr == D3DERR_DEVICELOST)
@@ -558,24 +534,22 @@ namespace GameTutor
 				if (hr == D3DERR_DEVICENOTRESET)
 				{
 					releaseAll();
-					hr = CGraphics::GetInstance()->Reset(); // Attempt to reset graphics device            
-					if (FAILED(hr))          // If reset failed               
-						return;
 					resetAll();
 				}
 				else
 					return;                 // Other device error    
 		}
+		*/
 	}
 	void CVSView::releaseAll()
 	{
-		CGraphics::GetInstance()->Destroy();
-		CDirectx::GetInstance()->Destroy();
+		//CGraphics::GetInstance()->Destroy();
+		//CDirectx::GetInstance()->Destroy();
 	}
 	void CVSView::resetAll()
 	{
-		CDirectx::GetInstance()->Init();
-		CGraphics::GetInstance()->Reset();
+		//CDirectx::GetInstance()->Init();
+		//CGraphics::GetInstance()->Reset();
 	}
 }
 

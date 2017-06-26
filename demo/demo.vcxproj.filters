@@ -21,10 +21,13 @@
     <ClCompile Include="CMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CStateLogo.cpp">
+    <ClCompile Include="CStatePoster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CStatePoster.cpp">
+    <ClCompile Include="CStatePlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +35,13 @@
     <ClInclude Include="CExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CStateLogo.h">
+    <ClInclude Include="CStatePoster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CStatePoster.h">
+    <ClInclude Include="CStatePlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

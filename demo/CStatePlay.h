@@ -1,13 +1,13 @@
-#ifndef __CSTATELOGO_H__
-#define __CSTATELOGO_H__
+#ifndef __CSTATEPLAY_H__
+#define __CSTATEPLAY_H__
 
 #include "zero.h"
 
-class CStateLogo : public GameTutor::CState
+class CStatePlay : public GameTutor::CState
 {
 public:
-	CStateLogo();
-	~CStateLogo() {}
+	CStatePlay();
+	~CStatePlay() {}
 
 	void Init();
 	void Update();

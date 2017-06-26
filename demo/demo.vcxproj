@@ -72,12 +72,14 @@
   <ItemGroup>
     <ClCompile Include="CExample.cpp" />
     <ClCompile Include="CMain.cpp" />
-    <ClCompile Include="CStateLogo.cpp" />
+    <ClCompile Include="CStateMenu.cpp" />
+    <ClCompile Include="CStatePlay.cpp" />
     <ClCompile Include="CStatePoster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CExample.h" />
-    <ClInclude Include="CStateLogo.h" />
+    <ClInclude Include="CStateMenu.h" />
+    <ClInclude Include="CStatePlay.h" />
     <ClInclude Include="CStatePoster.h" />
   </ItemGroup>
   <ItemGroup>

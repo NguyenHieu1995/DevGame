@@ -1,5 +1,4 @@
 #include "CGraphics.h"
-#include "CDirectx.h"
 #include "CGameError.h"
 
 CGraphics::CGraphics()
@@ -10,8 +9,9 @@ CGraphics::CGraphics()
 
 CGraphics::~CGraphics()
 {
+	this->Destroy();
 	//SAFE_RELEASE(this->v_buffer);
-	SAFE_RELEASE(font);
+	//SAFE_RELEASE(font);
 }
 
 bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
@@ -61,17 +61,7 @@ bool CGraphics::Init(__INT32 width, __INT32 height, HWND hwnd, bool fullScreen)
 		return false;
 	}
 
-	font = NULL;
-	HRESULT hr = D3DXCreateFont(this->m_lpDirect3DDevice, 20, 0, FW_NORMAL, 1, false,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &font);
-
-	if (!SUCCEEDED(hr))
-	{
-		return false;
-	}
-
-	SetRect(&fRectangle, this->m_iWidth - 100, 10, this->m_iWidth, 210);
-	message = "";
+	CText::GetInstance();
 
 	return true;
 }
@@ -81,6 +71,7 @@ void CGraphics::Destroy()
 {
 	SAFE_RELEASE(this->m_lpDirect3DDevice);
 	SAFE_RELEASE(this->v_buffer);
+	CText::FreeInstance();
 }
 
 //
@@ -92,13 +83,6 @@ HRESULT CGraphics::ShowBackbuffer()
 	// (This function will be moved in later versions)    
 	// Clear the backbuffer to lime green    
 	result = m_lpDirect3DDevice->Present(NULL, NULL, NULL, NULL);
-
-	/*
-	Log("\n Fps = %d FrameDT = %.9f",
-	GameTutor::CFpsController::GetInstance()->GetRuntimeFps(),
-	GameTutor::CFpsController::GetInstance()->GetFrameDt());
-	*/
-
 
 	return result;
 }
@@ -208,18 +192,13 @@ void CGraphics::BeginGraphic()
 
 void CGraphics::EndGraphics()
 {
+	RECT fRectangle;
+	SetRect(&fRectangle, this->m_iWidth - 100, 10, this->m_iWidth, 210);
+
 	//Hien thi FPS
 	std::string s = "FPS: " + std::to_string(GameTutor::CFpsController::GetInstance()->GetRuntimeFps());
-
 	CText::GetInstance()->AddText(fRectangle, s);
-
-	/*if (font)
-	{
-		font->DrawTextA(NULL, s.c_str(), -1, &fRectangle, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
-	}*/
-
 	CText::GetInstance()->ShowMessage();
-
 
 	//Ket thuc ve bang directx
 	CGraphics::GetInstance()->GetDevice()->EndScene();

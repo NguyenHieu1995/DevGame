@@ -11,6 +11,8 @@
 #include "CFpscontroller.h"
 #include "Utils.h"
 #include "CText.h"
+#include "CDirectx.h"
+#include "CCamera.h"
 
 // Color defines 
 #define COLOR_ARGB DWORD 
@@ -28,8 +30,6 @@ struct CUSTOMVERTEX2D
 {
 	FLOAT x, y, z;   
 };
-
-
 
 
 class CGraphics : public CSingleton<CGraphics>
@@ -79,11 +79,6 @@ protected:
 	__INT32 m_iHeight;
 	bool m_isFullScreen;
 	HWND m_hwnd;
-
-protected:
-	ID3DXFont *font;
-	RECT fRectangle;
-	std::string message;
 	
 };
 

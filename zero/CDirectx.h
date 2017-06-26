@@ -4,6 +4,8 @@
 
 #include "Header.h"
 #include "CSingleton.h"
+#include <d3d9.h>
+#include <d3dx9.h>
 
 class CDirectx : public CSingleton<CDirectx>
 {
@@ -17,7 +19,6 @@ public:
 	bool Init(void); //Khoi tao bien directX
 	void Destroy(void); //Giai phong bien DirectX
 	LPDIRECT3D9 GetDirectX() { return m_lpDirect3D; } //tra ve bien directx
-
 
 protected:
 	LPDIRECT3D9 m_lpDirect3D;
